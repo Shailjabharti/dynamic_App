@@ -8,37 +8,26 @@
                     <ul class="dropdown-content">
                         {{#each cat_List}}
                         <li>
-                            <a href="#">{{this.name}}</a>
+                            <a href="/product/{{this.id}}" >{{this.name}}</a>
                         </li>
                         {{/each}}
-                        {{!-- <li>
-                            <a href="#">Bakery Cakes and Dairy</a>
-                        </li>
-                        <li>
-                            <a href="#">Beverages</a>
-                        </li>
-                        <li>
-                            <a href="#">Beauty and Hygiene</a>
-                        </li>
-                        <li>
-                            <a href="#">Baby Care</a>
-                        </li> --}}
+                   
                     </ul>
                 </div>
                 <div class="product_lists">
                     <ul>
                         {{#each prod_List}}
-                        <li id="{{this.id}}">
+                        <li id="{{this.category}}">
                             <div>
-                                <h4>{{this.name}}</h4>
+                                <h4 class="match" tabindex="0">{{this.name}}</h4>
                                 <div class="prod_description">
                                     <div class="prod_img"><img alt="fruits" src="{{this.imageURL}}"></div>
-                                    <p>
+                                    <p tabindex="0">
                                        {{this.description}}
                                     </p>
                                     
                                 <div class="buy_now">
-                                    <a href="#" class="btn buy">Buy Now <span>MRP Rs. {{this.price}}</span></a>
+                                    <a href="#" class="btn buy" role="button">Buy Now <span><span>MRP</span> Rs. {{this.price}}</span></a>
                                 </div>
                                 </div>
                             </div>

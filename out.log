@@ -2,3 +2,9 @@
 > sabkabazaar@0.0.0 compile:sass-dev C:\Users\shabhart\Documents\training\sabkaBazaar
 > node-sass  -rw public/scss -o public/stylesheets/ -w
 
+=> changed: C:\Users\shabhart\Documents\training\sabkaBazaar\public\scss\cart.scss
+=> changed: C:\Users\shabhart\Documents\training\sabkaBazaar\public\scss\style.scss
+Rendering Complete, saving .css file...
+Wrote CSS to C:\Users\shabhart\Documents\training\sabkaBazaar\public\stylesheets\cart.css
+Rendering Complete, saving .css file...
+Wrote CSS to C:\Users\shabhart\Documents\training\sabkaBazaar\public\stylesheets\style.css

@@ -1,101 +1,45 @@
-{{!-- <section class="cart_Box">
-    <div class="container">
-        <div>
-            <h3>My Cart<span>(1 item)</span></h3>
-            <div class="cart_Items">
-                <ul>
-                    <li>
-                        <div class="items flex_box">
-                            <div class="img_wrap">
-                                <img
-                                    src="img/products/fruit-n-veg/apple.jpg"
-                                    alt="">
-                            </div>
-                            <div class="detail_wrap">
-                                <h5>Fruits & Vegetable</h5>
-                                <div>
-                                    <button class="btn">-</button>
-                                    <input type="text" value="0">
-                                    <button class="btn">+</button>
-                                    <span class="price">Rs.187</span>
-                                    <span class="total_price">Rs.187</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
 
-                </ul>
-            </div>
-            <div class="batch">
-                <div>
-                    <img src="img/lowest-price.png" alt="">
-                </div>
-                <div>
-                    <p>You won't find cheaper anywhere</p>
-                </div>
-            </div>
-        </div>
-        <div class="checkout">
-            <p>Promo code can be applied on payment page</p>
-            <button class="btn full_width">Proceed to checkout
-                <span>Rs. 187</span></button>
-        </div>
-    </div>
-</section> --}}
-
-<section>
+<section class="onhoverCart">
     <div class="container">
-        <div class="onhover_Cart">
-    <div class="cart_Box">
-        <div>
-            <h3>My Cart<span>({{cart_Item.count}} item)</span></h3>
-            <div class="cart_Items">
-                <ul>
-                   
-                    <li>
-                        <div class="items
-                            flex_box">
-                            <div
-                                class="img_wrap">
-                                <img
-                                    src="static/images/products/fruit-n-veg/apple.jpg"
-                                    alt="">
-                            </div>
-                            <div
-                                class="detail_wrap">
-                                <h5>Fruits & Vegetable</h5>
-                                <div>
-                                    <button class="btn">-</button>
-                                    <input type="text" value="0" class="prod_quantity">
-                                    <button class="btn">+</button>
-                                    <span class="price">Rs.187</span>
-                                    <span class="total_price">Rs.187</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="batch">
-                <div>
+        <h3>My Cart<span>({{cart_Item.count}} item)</span></h3>
+        <div class="onhoverCart__Items">
+            {{#each productInCart}}
+            <div class="onhoverCart-List flex-container">
+                <div class="onhoverCart-List__img">
                     <img
-                        src="/static/images/lowest-price.png"
-                        alt="">
+                        src="{{imageURL}}"
+                        alt="{{name}}">
                 </div>
-                <div>
-                    <p>You won't find cheaper
-                        anywhere</p>
+                <div class="onhoverCart-List__detail">
+                    <h5>{{name}}</h5>
+                    <div>
+                        <button class="btn btn--minus" onclick="minusCount()">-</button>
+                        <input type="text" value="1"
+                            id="prod_quantity">
+                        <button class="btn btn--plus" onclick="addCount()">+</button>
+                        <span class="price">Rs.{{price}}</span>
+                        <span class="prod-total_price">Rs.{{prod_totalCount}}</span>
+                    </div>
                 </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="onhoverCart__batch">
+            <div>
+                <img
+                    src="/static/images/lowest-price.png"
+                    alt="">
+            </div>
+            <div>
+                <p>You won't find cheaper
+                    anywhere</p>
             </div>
         </div>
         <div class="checkout">
             <p>Promo code can be applied on
                 payment page</p>
-            <button class="btn full_width">Proceed
+            <button class="btn btn--full_width">Proceed
                 to checkout <span>Rs. {{cart_item.totalPrice}}</span></button>
         </div>
-
-    </div>
-</div>
     </div>
 </section>

@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -48,6 +49,8 @@ app.use(function(err, req, res, next) {
 // partials
 
 hbs.registerPartials(path.join(__dirname, 'views/partials'));  
-
+hbs.registerHelper("inc", function(value, options){
+  return parseInt(value) + 1;
+});
 
 module.exports = app;

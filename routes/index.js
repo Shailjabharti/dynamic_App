@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var productInCart = [];
+
 // data calling
 
 var slides = require('../public/data/banners/index.get.json');
@@ -10,7 +12,7 @@ var prodCategories = require('../public/data/categories/index.get.json');
 
 // for sorting in order
 
-prodCategories.sort(function(a, b){
+prodCategories.sort(function (a, b) {
   return a.order - b.order;
 });
 
@@ -37,7 +39,7 @@ router.get('/', function (req, res, next) {
 router.get('/product', function (req, res, next) {
   var productLists = productList.filter(category_list => category_list.category);
   var ActiveCategories = prodCategories.filter(category => category.enabled);
-  
+
   var ActiveCategories = prodCategories.filter(category => category.enabled);
   res.render('product', {
     title: 'product',
@@ -81,9 +83,25 @@ router.get('/register', function (req, res, next) {
 /* GET cart page. */
 
 router.get('/cart', function (req, res, next) {
+  var productLists = productList.filter(category_list => category_list.category);
   res.render('cart', {
     title: 'cart',
+    prod_List: productLists,
+    productInCart: productInCart
   });
+ 
+});
+
+router.get('/addtocart/:id', function (req, res) {
+  console.log(req.params.id);  
+  productList.forEach(element => {
+    if(element.id === req.params.id){
+      productInCart.push(element);
+    }    
+  });
+  //var product_cat = productList.filter(product => product.id === req.query.id);
+  
+  res.end(JSON.stringify({ 'cartItems': productInCart }));
 });
 
 

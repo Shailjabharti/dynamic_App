@@ -1,8 +1,8 @@
 var slideIndex = 1;
-var counter = 0;
+//var counter = 0;
 
 
-var input = document.querySelector('#prod_quantity');
+
 
 
 showSlides(slideIndex);
@@ -39,67 +39,85 @@ setInterval(() => {
     carousal.click();
 }, 5000);
 
-
-
-
-
-
-
-
-
-
-
-
-
 // Cart functonality
 
 
-function buy(id) {
-    counter = parseInt(counter) + 1;
-    updateCart(counter);
-    var url = `http://localhost:3000/addtocart/${id}`;
-    fetch(url) // Call the fetch function passing the url of the API as a parameter
-        .then(function (response) {
-            // Your code for handling the data you get from the API
-            console.log(response);
-        })
-        .catch(function (error) {
-            // This is where you run code if the server returns any errors
-        });
+function buy(id, operation, endpoint) {
+    //counter = parseInt(counter) + 1;
+    //updateCart(counter);
+    var url = `http://localhost:3000/${endpoint}/${id}/${operation}`;
 
+    let xmlHttpReq = new XMLHttpRequest();
+    xmlHttpReq.open("GET", url, true);
+    xmlHttpReq.onload = function () {
+        if (xmlHttpReq.status >= 200 && xmlHttpReq.status < 400) {
+            let data = JSON.parse(xmlHttpReq.responseText);
+            updateCart(data.counter);
+        } else {
+            console.log("We conected to the server, but it returned an error.");
+        }
+    }
+    xmlHttpReq.onerror = function () {
+        console.log("Connection Error");
+    }
+    xmlHttpReq.send();
 
 }
 
-
-
-
-function addCount() {
+function addCount(id, prodid, price) {
+    var input = document.getElementById("prod" + prodid);
     input.value = parseInt(input.value) + 1;
     counter = input.value;
-    updateCart(counter);
+    buy(id, 'add', 'addtocart');
+    updateTotalCart(prodid, price);
+    //updateCheckoutAmount();
 
 }
 
-function minusCount() {
+function minusCount(id, prodid, price) {
+    var input = document.getElementById("prod" + prodid);
     input.value = parseInt(input.value) - 1;
-   
-    updateCart(counter);
-
-    if(input.value >= 0){
+    console.log(input.value);
+    if (input.value > 0) {
         counter = input.value;
-    }else if (input.value < 0){
+        buy(id, 'remove', 'addtocart');
+    } else if (input.value <= 0) {
         input.value = 0;
+        buy(id, 'remove', 'remove-item');
     }
-
+    updateTotalCart(prodid, price);
+    //updateCheckoutAmount();
 }
-
-
 
 function updateCart(counter) {
-    //console.log(counter);
     document.getElementsByClassName("cart-count")[0].innerHTML = counter;
-    document.getElementsByClassName("cart-count")[1].innerHTML = counter;
+    if (window.location.pathname == "/product") {
+        window.location.href = "/cart";
+    }
+    updateCheckoutAmount();
 }
 
+function updateTotalCart(prodid, price) {
+    var input = document.getElementById("prod" + prodid);
+    var totalPrice = parseInt(price) * parseInt(input.value);
+    document.getElementsByClassName("totalp" + prodid)[0].innerHTML = totalPrice;
+}
+
+function updateCheckoutAmount() {
+    var checkoutAccumulation = document.getElementsByClassName("total");
+    console.log(checkoutAccumulation);
+
+    let totalCheckoutSpan = document.getElementById("totalCheckoutAmount");
+    let totalCheckoutPrice = 0;
+    for (let i = 0; i < checkoutAccumulation.length; i++) {
+        console.log(checkoutAccumulation[i].innerHTML);
+        totalCheckoutPrice = totalCheckoutPrice + parseInt(checkoutAccumulation[i].innerHTML);
+    }
+    console.log(totalCheckoutPrice);
+
+    totalCheckoutSpan.innerHTML = "Rs. " + totalCheckoutPrice;
+    console.log("hiiiiiiiiiiii",totalCheckoutPrice);
+ 
+}
 
 

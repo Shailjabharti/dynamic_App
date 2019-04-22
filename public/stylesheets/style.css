@@ -431,7 +431,8 @@ ol {
   background-color: #bf2957;
   padding: 12px 5px;
   transition: 0.5s;
-  font-size: 14px; }
+  font-size: 14px;
+  cursor: pointer; }
 
 .btn:active,
 .btn:hover,
@@ -557,24 +558,23 @@ ol {
   width: 30px;
   height: 30px;
   display: inline-block; }
-  .nav-cart__icon span {
-    display: inline-block;
-    position: absolute;
-    height: 17px;
-    width: 17px;
-    background-color: #50dae2;
-    color: #ffffff;
-    text-align: center;
-    line-height: 17px;
-    font-style: initial;
-    font-size: 12px;
-    border-radius: 50%;
-    top: 0;
-    right: 0; }
 
 .nav-cart > span {
-  display: none;
-  color: #000; }
+  display: inline-block;
+  position: absolute;
+  height: 17px;
+  width: 17px;
+  background-color: #50dae2;
+  color: #ffffff;
+  text-align: center;
+  line-height: 17px;
+  font-style: initial;
+  font-size: 12px;
+  border-radius: 50%;
+  top: 0;
+  right: 0; }
+  .nav-cart > span .hidden {
+    display: none; }
 
 .nav-links ul {
   display: block;
@@ -705,8 +705,6 @@ footer {
         background-color: #eee;
         line-height: 1;
         position: relative; }
-        .header__nav > span a > span {
-          display: block; }
         .header__nav > span a i {
           position: absolute;
           left: 16px;
@@ -725,7 +723,18 @@ footer {
         font-weight: 600;
         font-size: 16px;
         transition: 0.5s;
-        text-transform: capitalize; } }
+        text-transform: capitalize; }
+  .nav-cart > span {
+    display: block;
+    position: static;
+    color: #222222;
+    font-size: 16px;
+    height: auto;
+    width: auto;
+    background: none; }
+    .nav-cart > span .hidden {
+      display: inline-block;
+      padding-left: 5px; } }
 
 @media only screen and (min-width: 1024px) {
   footer {

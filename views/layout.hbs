@@ -3,12 +3,15 @@
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+      var counter = 0;
+    </script>
   </head>
   <body>
-    {{> header}} 
+    {{> header}}
     {{{body}}}
     {{> footer}}
 
-<script src="/javascripts/main.js"></script>
+    <script src="/javascripts/main.js"></script>    
   </body>
 </html>

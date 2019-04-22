@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var productInCart = [];
+var counter = 0;
 
 // data calling
 
@@ -15,12 +16,6 @@ var prodCategories = require('../public/data/categories/index.get.json');
 prodCategories.sort(function (a, b) {
   return a.order - b.order;
 });
-
-
-var cart_item = {
-  items: [],
-  count: 0
-}
 /* GET home page. */
 
 router.get('/', function (req, res, next) {
@@ -29,7 +24,7 @@ router.get('/', function (req, res, next) {
   res.render('index', {
     slides: ActiveBanners,
     categories: ActiveCategories,
-    cart_item
+    counter: counter
   });
 
 });
@@ -45,6 +40,7 @@ router.get('/product', function (req, res, next) {
     title: 'product',
     cat_List: ActiveCategories,
     prod_List: productLists,
+    counter: counter
   });
 });
 
@@ -58,6 +54,7 @@ router.get('/product/:id', function (req, res, next) {
   res.render('product', {
     cat_List: ActiveCategories,
     prod_List: product_cat,
+    counter: counter
   })
 
 
@@ -68,6 +65,7 @@ router.get('/product/:id', function (req, res, next) {
 router.get('/login', function (req, res, next) {
   res.render('login', {
     title: 'login',
+    counter: counter
   });
 });
 
@@ -77,6 +75,7 @@ router.get('/login', function (req, res, next) {
 router.get('/register', function (req, res, next) {
   res.render('register', {
     title: 'register',
+    counter: counter
   });
 });
 
@@ -84,24 +83,64 @@ router.get('/register', function (req, res, next) {
 
 router.get('/cart', function (req, res, next) {
   var productLists = productList.filter(category_list => category_list.category);
+  console.log("productInCart: ", productInCart);
+
   res.render('cart', {
     title: 'cart',
     prod_List: productLists,
-    productInCart: productInCart
+    productInCart: productInCart,
+    counter: counter
   });
- 
+
 });
 
-router.get('/addtocart/:id', function (req, res) {
-  console.log(req.params.id);  
-  productList.forEach(element => {
-    if(element.id === req.params.id){
-      productInCart.push(element);
-    }    
+router.get('/addtocart/:id/:operation', function (req, res) {
+  console.log(req.params.id, req.params.operation);
+  if (req.params.operation == "add") {
+    productList.forEach(element => {
+      if (element.id === req.params.id) {
+        if (element.count == undefined) {
+          element.count = 1;
+          productInCart.push(element);
+          counter = counter + 1;
+          element.total_price = element.price;
+        } else {
+          element.count = element.count + 1;
+          counter = counter + 1;
+          element.total_price = element.count * element.price;
+        }
+      }
+    });
+    res.end(JSON.stringify({ 'cartItems': productInCart, 'counter': counter }));
+  } else if (req.params.operation == "remove") {
+    productList.forEach(element => {
+      if (element.id === req.params.id) {
+        if (element.count == undefined) {
+          element.count = 0;
+          productInCart.push(element);
+          counter = 0;
+          element.total_price = 0;
+        } else {
+          element.count = element.count - 1;
+          counter = counter - 1;
+          element.total_price = element.count * element.price;
+        }
+
+      }
+    });
+    res.end(JSON.stringify({ 'cartItems': productInCart, 'counter': counter }));
+  }
+});
+
+router.get('/remove-item/:id/:operation', function (req, res) {
+  productInCart.forEach(element => {
+    if (element.id === req.params.id) {
+      var removeIndex = productInCart.map(function (item) { return item.id; }).indexOf(req.params.id);
+      productInCart.splice(removeIndex, 1);
+      console.log(productInCart);
+    }
   });
-  //var product_cat = productList.filter(product => product.id === req.query.id);
-  
-  res.end(JSON.stringify({ 'cartItems': productInCart }));
+  res.end(JSON.stringify({ 'cartItems': productInCart, 'counter': counter }));
 });
 
 

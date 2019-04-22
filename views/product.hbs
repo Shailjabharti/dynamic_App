@@ -30,7 +30,9 @@
                                         {{this.description}}
                                     </p>
                                     <div class="buy_now">
-                                        <a href="#" class="btn buy" onclick="buy('{{this.id}}')"
+                                        <a class="btn buy"
+                                            onclick="buy('{{this.id}}', 'add',
+                                            'addtocart')"
                                             role="button">Buy
                                             Now <span><span>MRP</span> Rs.
                                                 {{this.price}}</span></a>

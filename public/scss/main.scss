@@ -12,6 +12,7 @@
   padding: 12px 5px;
   transition: 0.5s;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .btn:active,
@@ -163,25 +164,24 @@
     width: 30px;
     height: 30px;
     display: inline-block;
-    & span {
-      display: inline-block;
-      position: absolute;
-      height: 17px;
-      width: 17px;
-      background-color: #50dae2;
-      color: #ffffff;
-      text-align: center;
-      line-height: 17px;
-      font-style: initial;
-      font-size: 12px;
-      border-radius: 50%;
-      top: 0;
-      right: 0;
-    }
   }
   & > span {
-    display: none;
-    color: #000;
+    .hidden {
+      display: none;
+    }
+    display: inline-block;
+    position: absolute;
+    height: 17px;
+    width: 17px;
+    background-color: #50dae2;
+    color: #ffffff;
+    text-align: center;
+    line-height: 17px;
+    font-style: initial;
+    font-size: 12px;
+    border-radius: 50%;
+    top: 0;
+    right: 0;
   }
 }
 
@@ -358,9 +358,7 @@ footer {
           background-color: #eee;
           line-height: 1;
           position: relative;
-          & > span {
-            display: block;
-          }
+         
           i {
             position: absolute;
             left: 16px;
@@ -388,6 +386,21 @@ footer {
           transition: 0.5s;
           text-transform: capitalize;
         }
+      }
+    }
+  }
+  .nav-cart {
+    &> span{
+      display: block;
+      position: static;
+      color: #222222;
+      font-size: 16px;
+      height: auto;
+      width: auto;
+      background: none;
+      .hidden{
+        display: inline-block;
+        padding-left: 5px;
       }
     }
   }

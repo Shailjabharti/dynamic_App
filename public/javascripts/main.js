@@ -46,7 +46,7 @@ setInterval(() => {
 function buy(id, operation, endpoint) {
     //counter = parseInt(counter) + 1;
     //updateCart(counter);
-    var url = `http://localhost:3000/${endpoint}/${id}/${operation}`;
+    var url = `http://localhost:3000/cart/${endpoint}/${id}/${operation}`;
 
     let xmlHttpReq = new XMLHttpRequest();
     xmlHttpReq.open("GET", url, true);

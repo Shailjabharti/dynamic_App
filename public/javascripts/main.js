@@ -1,7 +1,8 @@
+
+
+
 var slideIndex = 1;
 //var counter = 0;
-
-
 
 
 

@@ -1,11 +1,5 @@
-
-
-
 var slideIndex = 1;
-//var counter = 0;
-
-
-
+//var item_counter = 0;
 showSlides(slideIndex);
 
 
@@ -44,16 +38,15 @@ setInterval(() => {
 
 
 function buy(id, operation, endpoint) {
-    //counter = parseInt(counter) + 1;
-    //updateCart(counter);
-    var url = `http://localhost:3000/cart/${endpoint}/${id}/${operation}`;
-
+    var url = window.location.origin+`/cart/${endpoint}/${id}/${operation}`;
     let xmlHttpReq = new XMLHttpRequest();
     xmlHttpReq.open("GET", url, true);
     xmlHttpReq.onload = function () {
         if (xmlHttpReq.status >= 200 && xmlHttpReq.status < 400) {
             let data = JSON.parse(xmlHttpReq.responseText);
-            updateCart(data.counter);
+            console.log(data);
+            
+            updateCart(data.item_counter);
         } else {
             console.log("We conected to the server, but it returned an error.");
         }
@@ -62,17 +55,14 @@ function buy(id, operation, endpoint) {
         console.log("Connection Error");
     }
     xmlHttpReq.send();
-
 }
 
 function addCount(id, prodid, price) {
     var input = document.getElementById("prod" + prodid);
     input.value = parseInt(input.value) + 1;
-    counter = input.value;
+    item_counter = input.value;
     buy(id, 'add', 'addtocart');
     updateTotalCart(prodid, price);
-    //updateCheckoutAmount();
-
 }
 
 function minusCount(id, prodid, price) {
@@ -80,9 +70,9 @@ function minusCount(id, prodid, price) {
     input.value = parseInt(input.value) - 1;
     console.log(input.value);
     if (input.value > 0) {
-        counter = input.value;
+        item_counter = input.value;
         buy(id, 'remove', 'addtocart');
-    } else if (input.value <= 0) {
+    } else if (input.value == 0) {
         input.value = 0;
         buy(id, 'remove', 'remove-item');
     }
@@ -90,8 +80,8 @@ function minusCount(id, prodid, price) {
     //updateCheckoutAmount();
 }
 
-function updateCart(counter) {
-    document.getElementsByClassName("cart-count")[0].innerHTML = counter;
+function updateCart(item_counter) {
+    document.getElementsByClassName("cart-count")[0].innerHTML = item_counter;
     if (window.location.pathname == "/product") {
         window.location.href = "/cart";
     }
@@ -106,19 +96,12 @@ function updateTotalCart(prodid, price) {
 
 function updateCheckoutAmount() {
     var checkoutAccumulation = document.getElementsByClassName("total");
-    console.log(checkoutAccumulation);
-
     let totalCheckoutSpan = document.getElementById("totalCheckoutAmount");
     let totalCheckoutPrice = 0;
-    for (let i = 0; i < checkoutAccumulation.length; i++) {
-        console.log(checkoutAccumulation[i].innerHTML);
+    for (let i = 0; i < checkoutAccumulation.length; i++) {        
         totalCheckoutPrice = totalCheckoutPrice + parseInt(checkoutAccumulation[i].innerHTML);
     }
-    console.log(totalCheckoutPrice);
-
     totalCheckoutSpan.innerHTML = "Rs. " + totalCheckoutPrice;
-    console.log("hiiiiiiiiiiii",totalCheckoutPrice);
- 
 }
 
 

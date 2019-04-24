@@ -14,6 +14,8 @@ var cartRouter = require('./routes/cart');
 var hbs = require('hbs');
 
 
+
+
 //var addToCart = require('./public/data/addToCart/index.get');
 
 var app = express();
@@ -58,5 +60,9 @@ hbs.registerPartials(path.join(__dirname, 'views/partials'));
 hbs.registerHelper("inc", function(value, options){
   return parseInt(value) + 1;
 });
+
+// hbs.registerHelper('counter', function(block) {
+//   return counter; //just return global variable value
+// });
 
 module.exports = app;

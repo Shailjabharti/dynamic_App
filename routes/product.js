@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 // data calling
 
+var itemCounter = require('./constant');
 
-var counter = 0;
 
 var productList = require('../public/data/products/index.get.json');
 var prodCategories = require('../public/data/categories/index.get.json');
@@ -21,6 +21,7 @@ prodCategories.sort(function (a, b) {
 /* GET product page. */
 
 router.get('/', function (req, res, next) {
+    console.log("products**************** ",itemCounter.item_counter);
     var productLists = productList.filter(category_list => category_list.category);
     var ActiveCategories = prodCategories.filter(category => category.enabled);
 
@@ -29,7 +30,7 @@ router.get('/', function (req, res, next) {
         title: 'product',
         cat_List: ActiveCategories,
         prod_List: productLists,
-        counter: counter
+        item_counter: itemCounter.item_counter
     });
 });
 
@@ -43,7 +44,7 @@ router.get('/:id', function (req, res, next) {
     res.render('product', {
         cat_List: ActiveCategories,
         prod_List: product_cat,
-        counter: counter
+        item_counter: itemCounter.item_counter
     })
 
 

@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "compile:js-dev": "babel public/assets/js -d public/js/ -w",
-    "compile:sass-dev": "node-sass  -rw public/scss -o public/stylesheets/ -w",
+    "compile:js-dev": "babel resources/javascripts -d resources/js -w",
+    "compile:sass-dev": "node-sass  -rw resources/scss -o resources/stylesheets/ -w",
     "start": "node ./bin/www",
     "nodemon_serve": "nodemon ./bin/www",
-    "postcss_sc": "postcss --use autoprefixer -d public/stylesheets public/stylesheets/*.css",
+    "postcss_sc": "postcss --use autoprefixer -d resources/stylesheets resources/stylesheets/*.css",
     "start:dev": "npm run compile:sass-dev > out.log | npm run compile:js-dev | npm run postcss_sc | nodemon ./bin/www"
   },
   "dependencies": {

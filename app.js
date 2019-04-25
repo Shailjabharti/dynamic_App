@@ -16,7 +16,7 @@ var hbs = require('hbs');
 
 
 
-//var addToCart = require('./public/data/addToCart/index.get');
+//var addToCart = require('./resources/data/addToCart/index.get');
 
 var app = express();
 
@@ -28,7 +28,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'resources')));
 
 
 app.use('/', indexRouter);
@@ -61,8 +61,5 @@ hbs.registerHelper("inc", function(value, options){
   return parseInt(value) + 1;
 });
 
-// hbs.registerHelper('counter', function(block) {
-//   return counter; //just return global variable value
-// });
 
 module.exports = app;
